@@ -3,7 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class AdminControlPanelUI extends JFrame implements ActionListener {
+public class FormatUI extends JFrame implements ActionListener {
 
 	protected void stylePanel(JPanel panel, int x, int y, int width, int height) {
         panel.setBounds(x, y, width, height);

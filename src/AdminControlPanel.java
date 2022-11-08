@@ -3,7 +3,7 @@ import java.awt.event.ActionListener;
 import java.awt.*;
 import javax.swing.*;
 
-public class AdminControlPanel extends AdminControlPanelUI implements ActionListener {
+public class AdminControlPanel extends FormatUI implements ActionListener {
 	private static final AdminControlPanel instance = new AdminControlPanel();
 	
 //	  private JTree tree;
@@ -15,9 +15,7 @@ public class AdminControlPanel extends AdminControlPanelUI implements ActionList
     private JPanel treeViewPanel, userGroupPanel, informationPanel, openUserViewPanel;
 
 	
-	private AdminControlPanel() {
-		System.out.println("Admin Panel created");
-	}
+	private AdminControlPanel() {}
 	
 	public static AdminControlPanel getInstance() {
 		return instance;
@@ -44,11 +42,11 @@ public class AdminControlPanel extends AdminControlPanelUI implements ActionList
         informationPanel = new JPanel();
         stylePanel(informationPanel, 395, 360, 495, 200);
         
-        userIDLabel = new JLabel("User ID:");
+        userIDLabel = new JLabel("User ID");
         userIDLabel.setBounds(10, 5, 305, 20);
         userGroupPanel.add(userIDLabel);
         
-        groupIDLabel = new JLabel("Group ID:");
+        groupIDLabel = new JLabel("Group ID");
         groupIDLabel.setBounds(10, 115, 305, 20);
         userGroupPanel.add(groupIDLabel);
         
