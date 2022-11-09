@@ -4,14 +4,13 @@ import java.util.List;
 import java.util.Arrays;
 import java.awt.*;
 import javax.swing.*;
-import javax.xml.stream.events.StartDocument;
 
 public class AdminControlPanel extends FormatUI implements ActionListener {
 	private static final AdminControlPanel instance = new AdminControlPanel();
     private JTextField userID, groupID;
     private JButton addUser, addGroup, openUserView, showUserTotal,
 					showGroupTotal, showMessagesTotal, showPositivePercentage;
-    private JLabel userIDLabel, groupIDLabel, treeViewLabel;
+    private JLabel userIDLabel, groupIDLabel;
     private JPanel treeViewPanel, userGroupPanel, informationPanel, openUserViewPanel;
     private JTree tree;
     private JScrollPane treeScrollPane;

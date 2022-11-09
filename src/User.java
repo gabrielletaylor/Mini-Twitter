@@ -15,7 +15,7 @@ public class User extends Subject implements Observer, GroupComponent {
 		followers = new ArrayList<>();
 		tweets = new ArrayList<>();
 		newsFeed = new ArrayList<>();
-		userView.openUserViewPanel();
+		userView.displayUserViewPanel();
 		attach(this);
 		following.add(this);
 	}
