@@ -11,8 +11,13 @@ public class User extends Subject implements Observer, GroupComponent {
 		this.userGroupTree = userGroupTree;
 		this.uniqueID = uniqueID.toLowerCase();
 		userView = new UserView(this);
-		
-		
+		following = new ArrayList<>();
+		followers = new ArrayList<>();
+		tweets = new ArrayList<>();
+		newsFeed = new ArrayList<>();
+		userView.openUserViewPanel();
+		attach(this);
+		following.add(this);
 	}
 	
 	public ArrayList<String> getTweets() {
@@ -52,8 +57,7 @@ public class User extends Subject implements Observer, GroupComponent {
 	
 	@Override
 	public void add(GroupComponent group) {
-		// TODO Auto-generated method stub
-		
+		userView.displayErrorMessage("User Error", "Error: User is not a group.");
 	}
 	
 	@Override
@@ -81,18 +85,10 @@ public class User extends Subject implements Observer, GroupComponent {
 		userView.setVisible(true);
 	}
 	
-//	@Override
-//	public void update() {
-//		// TODO Auto-generated method stub
-//		
-//	}
-	
 	@Override
 	public void update(Subject subject) {
 		if (subject instanceof User) {
 			postToNewsFeed(((User) subject).getUniqueID() + ": " + ((User) subject).getLastTweet());
 		}
 	}
-	
-	
 }

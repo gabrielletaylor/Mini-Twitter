@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Subject {
-	private ArrayList<Observer> observers;
+	private ArrayList<Observer> observers = new ArrayList<>();
 	
 	public void attach(Observer observer) {
         observers.add(observer);

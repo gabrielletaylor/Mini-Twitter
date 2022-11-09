@@ -3,10 +3,8 @@ import java.util.ArrayList;
 public class UserGroup implements GroupComponent {
 	private String uniqueID;
 	private ArrayList<GroupComponent> users;
-	private GroupComponentTree groupTree;
 	
-	public UserGroup(GroupComponentTree groupTree, String uniqueID) {
-		this.groupTree = groupTree;
+	public UserGroup(String uniqueID) {
 		this.uniqueID = uniqueID.toUpperCase();
 		users = new ArrayList<>();
 	}

@@ -6,37 +6,37 @@ import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
-public class GroupComponentTree implements TreeModel{
+public class GroupComponentTree implements TreeModel {
 	private GroupComponent root;                   
     private List<TreeModelListener> listeners;
     
-    public GroupComponentTree(GroupComponent root){
+    public GroupComponentTree(GroupComponent root) {
         this.root = root;
         listeners = new ArrayList<>();
     }
     
-    public GroupComponent findUserByID(GroupComponent start, String id){
+    public GroupComponent findUserByID(GroupComponent start, String id) {
         FindUserVisitor visitor = new FindUserVisitor(id);
         start.accept(visitor);
-        return visitor.user;
+        return visitor.getUser();
     }
     
-    public GroupComponent findGroupByID(GroupComponent start, String id){
+    public GroupComponent findGroupByID(GroupComponent start, String id) {
         FindGroupVisitor visitor = new FindGroupVisitor(id);
         start.accept(visitor);
-        return visitor.group;
+        return visitor.getGroup();
     }
     
     private void changeTree()
     {
         Object[] o = {root};
         TreeModelEvent e = new TreeModelEvent(this, o);
-        for(TreeModelListener l : listeners){
+        for (TreeModelListener l : listeners){
             l.treeStructureChanged(e);
         }
     }
     
-    public void addGroupComponent(GroupComponent parent, GroupComponent elem){
+    public void addGroupComponent(GroupComponent parent, GroupComponent elem) {
         parent.add(elem);
         changeTree();
     }

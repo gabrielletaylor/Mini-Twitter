@@ -18,19 +18,18 @@ public class GroupComponentTreeCellRenderer implements TreeCellRenderer {
         GroupComponent userElem = (GroupComponent) value;
 
         label.setText(userElem.getUniqueID() + " ");
-        
         if (selected) {
             label.setOpaque(true);
         }
         else {
             label.setOpaque(false);
         }
-//        if (userElem instanceof UserGroup){
-//            label.setFont(font.deriveFont(font.getStyle() | Font.BOLD));
-//        }
-//        else {
-//            label.setFont(font.deriveFont(font.getStyle() | Font.PLAIN));
-//        }
+        if (userElem instanceof UserGroup) {
+        	label.setFont(new Font("SANS_SERIF", Font.BOLD, 12));
+        }
+        else if (userElem instanceof User) {        	
+        	label.setFont(new Font("SANS_SERIF", Font.PLAIN, 12));
+        }
 
         return label;
     }

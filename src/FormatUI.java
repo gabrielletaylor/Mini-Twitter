@@ -1,5 +1,3 @@
-import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
@@ -8,7 +6,6 @@ public abstract class FormatUI extends JFrame implements ActionListener {
 	protected void stylePanel(JPanel panel, int x, int y, int width, int height) {
         panel.setBounds(x, y, width, height);
         panel.setLayout(null);
-//        panel.setBackground(Color.LIGHT_GRAY);
         panel.setOpaque(true);
         add(panel);
     }

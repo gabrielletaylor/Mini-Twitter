@@ -1,16 +1,18 @@
 
 public class FindGroupVisitor implements Visitor {
-	public UserGroup group;
+	private UserGroup group;
 	private String userGroupID;
 	
 	public FindGroupVisitor(String userGroupID) {
 		this.userGroupID = userGroupID.toUpperCase();
 	}
+	
+	public UserGroup getGroup() {
+		return group;
+	}
 
 	@Override
-	public void visitUser(User user) {
-		
-	}
+	public void visitUser(User user) {}
 
 	@Override
 	public void visitGroup(UserGroup group) {
@@ -18,5 +20,4 @@ public class FindGroupVisitor implements Visitor {
 			this.group = group;
 		}
 	}
-
 }

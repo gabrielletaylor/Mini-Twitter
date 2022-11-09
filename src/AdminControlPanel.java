@@ -1,11 +1,13 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Arrays;
 import java.awt.*;
 import javax.swing.*;
+import javax.xml.stream.events.StartDocument;
 
 public class AdminControlPanel extends FormatUI implements ActionListener {
 	private static final AdminControlPanel instance = new AdminControlPanel();
-	
     private JTextField userID, groupID;
     private JButton addUser, addGroup, openUserView, showUserTotal,
 					showGroupTotal, showMessagesTotal, showPositivePercentage;
@@ -13,7 +15,6 @@ public class AdminControlPanel extends FormatUI implements ActionListener {
     private JPanel treeViewPanel, userGroupPanel, informationPanel, openUserViewPanel;
     private JTree tree;
     private JScrollPane treeScrollPane;
-    
     private GroupComponent root;
     private GroupComponentTree userGroupTree;
 	
@@ -35,7 +36,7 @@ public class AdminControlPanel extends FormatUI implements ActionListener {
         treeViewPanel.setBackground(Color.white);       
         stylePanel(treeViewPanel, 10, 10, 375, 550);
         
-        root = new UserGroup(userGroupTree, "Root");
+        root = new UserGroup("Root");
         userGroupTree = new GroupComponentTree(root);
         tree = new JTree(userGroupTree);
         tree.setCellRenderer(new GroupComponentTreeCellRenderer());
@@ -43,9 +44,9 @@ public class AdminControlPanel extends FormatUI implements ActionListener {
         styleTree(tree, 10, 10, 375, 550);
 
         treeScrollPane = new JScrollPane(tree);
-        treeScrollPane.setBounds(0, 0, 375, 550);
+        treeScrollPane.setBounds(5, 5, 365, 540);
+        treeScrollPane.setBorder(BorderFactory.createEmptyBorder());
         treeViewPanel.add(treeScrollPane);
-        
         
         
         userGroupPanel = new JPanel();
@@ -134,11 +135,12 @@ public class AdminControlPanel extends FormatUI implements ActionListener {
 			GroupComponent user = getSelecedUser();
 			if (userGroupTree.findUserByID(user, id) == null) {
 				userGroupTree.addGroupComponent(user, new User(userGroupTree, id));
-				userID.setText("");
 			}
 			else {
 				displayErrorMessage("User Already Exists", "Error: User " + id + " is taken.");
 			}
+			userID.setText("");
+			expandTree(tree);
 		}
 	}
 	
@@ -147,33 +149,62 @@ public class AdminControlPanel extends FormatUI implements ActionListener {
 		if (id != "") {
 			GroupComponent user = getSelecedUser();
 			if (userGroupTree.findGroupByID(user, id) == null) {
-				userGroupTree.addGroupComponent(user, new UserGroup(userGroupTree, id));
-				groupID.setText("");
+				userGroupTree.addGroupComponent(user, new UserGroup(id));
 			}
 			else {
 				displayErrorMessage("Group Already Exists", "Error: Group " + id + " is taken.");
 			}
+			groupID.setText("");
+			expandTree(tree);
 		}
 	}
 	
 	private void openUserView() {
-		
+		GroupComponent user = getSelecedUser();
+		user.openUserView();
 	}
 	
 	private void showUserTotal() {
-		
+		int totalUsers = 0;
+		GroupComponent user = getSelecedUser();
+		UserTotalVisitor visitor = new UserTotalVisitor();
+		user.accept(visitor);
+		totalUsers = visitor.getTotalUsers();
+		JOptionPane.showMessageDialog(this, "Total number of users: " + totalUsers, "User Total", JOptionPane.PLAIN_MESSAGE);
 	}
 	
 	private void showGroupTotal() {
-		
+		int totalGroups = 0;
+		GroupComponent user = getSelecedUser();
+		GroupTotalVisitor visitor = new GroupTotalVisitor();
+		user.accept(visitor);
+		totalGroups = visitor.getTotalGroups();
+		JOptionPane.showMessageDialog(this, "Total number of groups: " + totalGroups, "Group Total", JOptionPane.PLAIN_MESSAGE);
 	}
 	
 	private void showMessagesTotal() {
-		
+		int totalMessages = 0;
+		GroupComponent user = getSelecedUser();
+		MessagesTotalVisitor visitor = new MessagesTotalVisitor();
+		user.accept(visitor);
+		totalMessages = visitor.getTotalMessages();
+		JOptionPane.showMessageDialog(this, "Total number of messages: " + totalMessages, "Messages Total", JOptionPane.PLAIN_MESSAGE);
 	}
 	
 	private void showPositivePercentage() {
-		
+		final List<String> positiveWords = Arrays.asList("good", "great", "excellent", "amazing", "spectacular");
+		double percentage = 0;
+		GroupComponent user = getSelecedUser();
+		PositivePercentageVisitor visitor1 = new PositivePercentageVisitor(positiveWords);
+		MessagesTotalVisitor visitor2 = new MessagesTotalVisitor();
+		user.accept(visitor1);
+		user.accept(visitor2);
+		percentage = (double) visitor1.getPositiveMessages() / (double) visitor2.getTotalMessages() * 100.0;
+		if (((Double) percentage).isNaN()) {
+			percentage = 0;
+		}
+		JOptionPane.showMessageDialog(this, "Percentage of tweets containing positive words: " + percentage + "%", 
+				"Positive Percentage", JOptionPane.PLAIN_MESSAGE);
 	}
 	
 	private GroupComponent getSelecedUser() {
@@ -182,5 +213,11 @@ public class AdminControlPanel extends FormatUI implements ActionListener {
 			user = root;
 		}
 		return user;
+	}
+	
+	private void expandTree(JTree tree) {
+		for (int i = 0; i < tree.getRowCount(); i++) {
+			tree.expandRow(i);
+		}
 	}
 }
