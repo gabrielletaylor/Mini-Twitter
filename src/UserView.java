@@ -17,7 +17,7 @@ public class UserView extends FormatUI {
 	private JScrollPane followingScrollPane, newsFeedScrollPane;
 	private JTextField userID, tweetMessage;
 	private JButton followUser, postTweet;
-	private JList followingList, newsFeedList;
+	private JList<String> followingList, newsFeedList;
 	private DefaultListModel<String> followingListModel, newsFeedListModel;
 	
 	public UserView(User user) {
@@ -52,8 +52,8 @@ public class UserView extends FormatUI {
         currentFollowingLabel.setBounds(10, 5, 480, 20);
         followingPanel.add(currentFollowingLabel);
         
-        followingListModel = new DefaultListModel();
-        followingList = new JList(followingListModel);
+        followingListModel = new DefaultListModel<String>();
+        followingList = new JList<String>(followingListModel);
         followingScrollPane = new JScrollPane(followingList);
         followingScrollPane.setBounds(5, 30, 470, 155);
         followingScrollPane.setBorder(BorderFactory.createEmptyBorder());
@@ -80,8 +80,8 @@ public class UserView extends FormatUI {
         newsFeedLabel.setBounds(10, 5, 480, 20);
         newsFeedPanel.add(newsFeedLabel);
         
-        newsFeedListModel = new DefaultListModel();
-        newsFeedList = new JList(newsFeedListModel);
+        newsFeedListModel = new DefaultListModel<String>();
+        newsFeedList = new JList<String>(newsFeedListModel);
         newsFeedScrollPane = new JScrollPane(newsFeedList);
         newsFeedScrollPane.setBounds(5, 30, 470, 215);
         newsFeedScrollPane.setBorder(BorderFactory.createEmptyBorder());
