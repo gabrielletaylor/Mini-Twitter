@@ -1,6 +1,7 @@
 package model;
 import java.util.ArrayList;
 
+//composite class under component to follow Composite design pattern
 public class UserGroup implements GroupComponent {
 	private String uniqueID;
 	private ArrayList<GroupComponent> users;

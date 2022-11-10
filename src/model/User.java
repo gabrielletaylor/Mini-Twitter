@@ -2,6 +2,8 @@ package model;
 import java.util.ArrayList;
 import view.UserView;
 
+// composite class under component to follow Composite design pattern
+// also implements Observer design pattern for updating news feed
 public class User extends Subject implements Observer, GroupComponent {
 	private String uniqueID;
 	private ArrayList<User> following, followers;

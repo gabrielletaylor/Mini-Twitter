@@ -1,5 +1,6 @@
 package model;
 
+// interface to implement Composite design pattern
 public interface GroupComponent {
 	public String getUniqueID();
     

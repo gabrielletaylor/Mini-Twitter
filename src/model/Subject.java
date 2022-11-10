@@ -1,6 +1,7 @@
 package model;
 import java.util.ArrayList;
 
+// class to keep track of/know its observers
 public class Subject {
 	private ArrayList<Observer> observers = new ArrayList<>();
 	
