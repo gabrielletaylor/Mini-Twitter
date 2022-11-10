@@ -139,7 +139,7 @@ public class AdminControlPanel extends FormatUI implements ActionListener {
 			GroupComponent user = getSelecedUser();
 			if (userGroupTree.findUserByID(user, id) == null) {
 				if (!userGroupTree.findUserInTree(id)) {
-					userGroupTree.addGroupComponent(user, new User(userGroupTree, id));
+					userGroupTree.addGroupComponent(user, new User(userGroupTree, "@" + id));
 				}
 				else {
 					displayErrorMessage("User Error", "Error: User " + id + " can only belong in one group.");
