@@ -142,11 +142,11 @@ public class AdminControlPanel extends FormatUI implements ActionListener {
 					userGroupTree.addGroupComponent(user, new User(userGroupTree, id));
 				}
 				else {
-					displayErrorMessage("User Already Exists", "Error: User " + id + " can only belong in one group.");
+					displayErrorMessage("User Error", "Error: User " + id + " can only belong in one group.");
 				}
 			}
 			else {
-				displayErrorMessage("User Already Exists", "Error: User " + id + " is taken.");
+				displayErrorMessage("User Error", "Error: User " + id + " is taken.");
 			}
 			userID.setText("");
 			expandTree();
@@ -163,7 +163,7 @@ public class AdminControlPanel extends FormatUI implements ActionListener {
 				userGroupTree.addGroupComponent(user, new UserGroup(id));
 			}
 			else {
-				displayErrorMessage("Group Already Exists", "Error: Group " + id + " is taken.");
+				displayErrorMessage("Group Error", "Error: Group " + id + " is taken.");
 			}
 			groupID.setText("");
 			expandTree();
