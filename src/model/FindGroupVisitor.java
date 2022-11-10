@@ -1,6 +1,6 @@
 package model;
 
-public class FindGroupVisitor implements Visitor {
+public class FindGroupVisitor extends Visitor {
 	private UserGroup group;
 	private String userGroupID;
 	

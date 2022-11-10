@@ -1,6 +1,6 @@
 package model;
 
-public class UserTotalVisitor implements Visitor {
+public class UserTotalVisitor extends Visitor {
 	
 	private int totalUsers;
 	

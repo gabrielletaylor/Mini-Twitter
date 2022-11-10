@@ -1,6 +1,6 @@
 package model;
 
-public interface Visitor {
-	public void visitUser(User user);
-	public void visitGroup(UserGroup group);
+public abstract class Visitor {
+	public void visitUser(User user) {};
+	public void visitGroup(UserGroup group) {};
 }

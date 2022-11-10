@@ -46,6 +46,7 @@ public class AdminControlPanel extends FormatUI implements ActionListener {
         treeViewPanel = new JPanel();
         treeViewPanel.setBackground(Color.white);       
         stylePanel(treeViewPanel, 10, 10, 375, 550);
+        // create new group with title Root
         root = new UserGroup("Root");
         userGroupTree = new GroupComponentTree(root);
         tree = new JTree(userGroupTree);

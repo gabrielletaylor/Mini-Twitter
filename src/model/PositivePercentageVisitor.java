@@ -1,7 +1,7 @@
 package model;
 import java.util.List;
 
-public class PositivePercentageVisitor implements Visitor {
+public class PositivePercentageVisitor extends Visitor {
 	
 	private int totalPositiveMessages;
 	private List<String> positiveWords; 

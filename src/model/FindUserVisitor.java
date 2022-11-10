@@ -1,6 +1,6 @@
 package model;
 
-public class FindUserVisitor implements Visitor {
+public class FindUserVisitor extends Visitor {
 	private User user;
 	private String userID;
 	
