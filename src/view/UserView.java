@@ -106,7 +106,7 @@ public class UserView extends FormatUI {
 
 	// method to add tweet to news feed
 	public void addTweetToNewsFeed(String tweet) {
-		newsFeedListModel.add(0, " - " + tweet);
+		newsFeedListModel.add(0, " -  @" + tweet);
 	}
 	
 	// method to follow user as long as user exists
@@ -114,7 +114,7 @@ public class UserView extends FormatUI {
 		String followUserID = userID.getText();
 		if (followUserID != "") {
 			if (user.followUser(followUserID)) {
-				followingListModel.add(0, " - " + followUserID);
+				followingListModel.add(0, " -  @" + followUserID);
 			}
 			else {
 				displayErrorMessage("Follow User Error", "Error: Could not follow user " + followUserID + ".");
