@@ -1,5 +1,6 @@
-import java.awt.event.ActionEvent;
+package view;
 
+import java.awt.event.ActionEvent;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -9,6 +10,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import model.User;
 
 public class UserView extends FormatUI {
 	private User user;

@@ -1,4 +1,4 @@
-
+package model;
 
 public interface GroupComponent {
 	public String getUniqueID();

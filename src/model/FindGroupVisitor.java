@@ -1,3 +1,4 @@
+package model;
 
 public class FindGroupVisitor implements Visitor {
 	private UserGroup group;

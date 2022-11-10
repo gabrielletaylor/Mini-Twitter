@@ -1,3 +1,4 @@
+package model;
 
 public class FindUserVisitor implements Visitor {
 	private User user;

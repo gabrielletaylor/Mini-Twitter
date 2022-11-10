@@ -1,4 +1,6 @@
+package model;
 import java.util.ArrayList;
+import view.UserView;
 
 public class User extends Subject implements Observer, GroupComponent {
 	private String uniqueID;
@@ -57,7 +59,7 @@ public class User extends Subject implements Observer, GroupComponent {
 	
 	@Override
 	public void add(GroupComponent group) {
-		userView.displayErrorMessage("User Error", "Error: User is not a group.");
+		userView.displayErrorMessage("User Error", "Error: Cannot add user to a user.");
 	}
 	
 	@Override

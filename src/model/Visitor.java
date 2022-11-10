@@ -1,3 +1,4 @@
+package model;
 
 public interface Visitor {
 	public void visitUser(User user);

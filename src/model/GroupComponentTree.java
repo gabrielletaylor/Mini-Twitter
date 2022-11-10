@@ -1,3 +1,4 @@
+package model;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.event.TreeModelEvent;
@@ -14,19 +15,30 @@ public class GroupComponentTree implements TreeModel {
         listeners = new ArrayList<>();
     }
     
-    public GroupComponent findUserByID(GroupComponent start, String id) {
+    public GroupComponent findUserByID(GroupComponent parent, String id) {
         FindUserVisitor visitor = new FindUserVisitor(id);
-        start.accept(visitor);
+        parent.accept(visitor);
         return visitor.getUser();
     }
     
-    public GroupComponent findGroupByID(GroupComponent start, String id) {
+    public GroupComponent findGroupByID(GroupComponent parent, String id) {
         FindGroupVisitor visitor = new FindGroupVisitor(id);
-        start.accept(visitor);
+        parent.accept(visitor);
         return visitor.getGroup();
     }
     
-    private void changeTree()
+    public boolean findUserInTree(String id) {
+    	FindUserVisitor visitor = new FindUserVisitor(id);
+    	root.accept(visitor);
+    	if (visitor.getUser() != null) {
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+    }
+    
+    private void updateTree()
     {
         Object[] o = {root};
         TreeModelEvent e = new TreeModelEvent(this, o);
@@ -35,9 +47,9 @@ public class GroupComponentTree implements TreeModel {
         }
     }
     
-    public void addGroupComponent(GroupComponent parent, GroupComponent elem) {
-        parent.add(elem);
-        changeTree();
+    public void addGroupComponent(GroupComponent parent, GroupComponent newComponent) {
+        parent.add(newComponent);
+        updateTree();
     }
 
     @Override
@@ -47,17 +59,17 @@ public class GroupComponentTree implements TreeModel {
 
     @Override
     public Object getChild(Object parent, int index) {
-        return ((GroupComponent)(((GroupComponent) parent).getChild(index)));
+        return (GroupComponent) ((GroupComponent) parent).getChild(index);
     }
 
     @Override
     public int getChildCount(Object parent) {
-        return (((GroupComponent) parent).getChildCount());
+        return ((GroupComponent) parent).getChildCount();
     }
 
     @Override
     public boolean isLeaf(Object node) {
-        return (((GroupComponent) node).getChildCount() == 0);
+        return ((GroupComponent) node).getChildCount() == 0;
     }
 
     @Override
@@ -67,7 +79,7 @@ public class GroupComponentTree implements TreeModel {
 
     @Override
     public int getIndexOfChild(Object parent, Object child) {
-        return (((GroupComponent) parent).getIndexOfChild(((GroupComponent) child)));
+        return ((GroupComponent) parent).getIndexOfChild((GroupComponent) child);
     }
 
     @Override
