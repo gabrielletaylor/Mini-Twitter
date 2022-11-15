@@ -30,7 +30,7 @@ public class UserView extends FormatUI {
 	public void displayUserViewPanel() {
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setTitle("Mini Twitter - " + userLeaf.getUniqueID());
+        setTitle("Mini Twitter - @" + userLeaf.getUniqueID());
         setSize(500, 700);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -106,16 +106,16 @@ public class UserView extends FormatUI {
 
 	// method to add tweet to news feed
 	public void addTweetToNewsFeed(String tweet) {
-		newsFeedListModel.add(0, " - " + tweet);
+		newsFeedListModel.add(0, " - @" + tweet);
 	}
 	
 	// method to follow user as long as user exists
 	public void followUser() {
 		String followUserID = userID.getText();
 		if (followUserID != "") {
-			String userAt = "@" + followUserID;
+			String userAt = followUserID;
 			if (userLeaf.followUser(userAt)) {
-				followingListModel.add(0, " - " + userAt);
+				followingListModel.add(0, " - @" + userAt);
 			}
 			else {
 				displayErrorMessage("Follow User Error", "Error: Could not follow user " + userAt + ".");
