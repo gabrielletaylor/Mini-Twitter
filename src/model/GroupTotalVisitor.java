@@ -1,6 +1,6 @@
 package model;
 
-public class GroupTotalVisitor extends Visitor {
+public class GroupTotalVisitor extends NodeVisitor {
 	
 	private int totalGroups;
 	
@@ -9,10 +9,10 @@ public class GroupTotalVisitor extends Visitor {
 	}
 
 	@Override
-	public void visitUser(User user) {}
+	public void visitUser(UserLeaf userLeaf) {}
 
 	@Override
-	public void visitGroup(UserGroup group) {
+	public void visitGroup(UserGroupComposite group) {
 		totalGroups++;
 	}
 

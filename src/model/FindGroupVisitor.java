@@ -1,22 +1,22 @@
 package model;
 
-public class FindGroupVisitor extends Visitor {
-	private UserGroup group;
+public class FindGroupVisitor extends NodeVisitor {
+	private UserGroupComposite group;
 	private String userGroupID;
 	
 	public FindGroupVisitor(String userGroupID) {
 		this.userGroupID = userGroupID.toUpperCase();
 	}
 	
-	public UserGroup getGroup() {
+	public UserGroupComposite getGroup() {
 		return group;
 	}
 
 	@Override
-	public void visitUser(User user) {}
+	public void visitUser(UserLeaf userLeaf) {}
 
 	@Override
-	public void visitGroup(UserGroup group) {
+	public void visitGroup(UserGroupComposite group) {
 		if (group.getUniqueID().toUpperCase().equals(userGroupID)) {
 			this.group = group;
 		}

@@ -6,18 +6,16 @@ import java.util.Arrays;
 import java.awt.*;
 import javax.swing.*;
 
-import model.GroupComponent;
-import model.GroupComponentTree;
-import model.GroupComponentTreeRenderer;
+import model.UserGroupComponent;
+import model.TreeView;
 import model.GroupTotalVisitor;
 import model.MessagesTotalVisitor;
 import model.PositivePercentageVisitor;
-import model.User;
-import model.UserGroup;
+import model.UserLeaf;
+import model.UserGroupComposite;
 import model.UserTotalVisitor;
 
 public class AdminControlPanel extends FormatUI implements ActionListener {
-	private static final AdminControlPanel instance = new AdminControlPanel();
     private JTextField userID, groupID;
     private JButton addUser, addGroup, openUserView, showUserTotal,
 					showGroupTotal, showMessagesTotal, showPositivePercentage;
@@ -25,8 +23,9 @@ public class AdminControlPanel extends FormatUI implements ActionListener {
     private JPanel treeViewPanel, userGroupPanel, informationPanel, openUserViewPanel;
     private JTree tree;
     private JScrollPane treeScrollPane;
-    private GroupComponent root;
-    private GroupComponentTree userGroupTree;
+    private UserGroupComponent root;
+    private TreeView userGroupTree;
+    private static final AdminControlPanel instance = new AdminControlPanel();
 	
 	private AdminControlPanel() {}
 	
@@ -47,10 +46,10 @@ public class AdminControlPanel extends FormatUI implements ActionListener {
         treeViewPanel.setBackground(Color.white);       
         stylePanel(treeViewPanel, 10, 10, 375, 550);
         // create new group with title Root
-        root = new UserGroup("Root");
-        userGroupTree = new GroupComponentTree(root);
+        root = new UserGroupComposite("Root");
+        userGroupTree = new TreeView(root);
         tree = new JTree(userGroupTree);
-        tree.setCellRenderer(new GroupComponentTreeRenderer());
+        tree.setCellRenderer(new TreeViewRenderer());
         styleTree(tree, 10, 10, 375, 550);
         treeScrollPane = new JScrollPane(tree);
         treeScrollPane.setBounds(5, 5, 365, 540);
@@ -136,10 +135,10 @@ public class AdminControlPanel extends FormatUI implements ActionListener {
 	private void addUser() {
 		String id = userID.getText();
 		if (id != "") {
-			GroupComponent user = getSelecedUser();
+			UserGroupComponent user = getSelecedUser();
 			if (userGroupTree.findUserByID(user, id) == null) {
 				if (!userGroupTree.findUserInTree(id)) {
-					userGroupTree.addGroupComponent(user, new User(userGroupTree, "@" + id));
+					userGroupTree.addGroupComponent(user, new UserLeaf(userGroupTree, "@" + id));
 				}
 				else {
 					displayErrorMessage("User Error", "Error: User " + id + " can only belong in one group.");
@@ -158,9 +157,9 @@ public class AdminControlPanel extends FormatUI implements ActionListener {
 	private void addGroup() {
 		String id = groupID.getText();
 		if (id != "") {
-			GroupComponent user = getSelecedUser();
+			UserGroupComponent user = getSelecedUser();
 			if (userGroupTree.findGroupByID(user, id) == null) {
-				userGroupTree.addGroupComponent(user, new UserGroup(id));
+				userGroupTree.addGroupComponent(user, new UserGroupComposite(id));
 			}
 			else {
 				displayErrorMessage("Group Error", "Error: Group " + id + " is taken.");
@@ -173,14 +172,14 @@ public class AdminControlPanel extends FormatUI implements ActionListener {
 	// method to open user view for specified user
 	// if no specified user, user view opens for all users
 	private void openUserView() {
-		GroupComponent user = getSelecedUser();
+		UserGroupComponent user = getSelecedUser();
 		user.openUserView();
 	}
 	
 	// method to display total number of users
 	private void showUserTotal() {
 		int totalUsers = 0;
-		GroupComponent user = getSelecedUser();
+		UserGroupComponent user = getSelecedUser();
 		UserTotalVisitor visitor = new UserTotalVisitor();
 		user.accept(visitor);
 		totalUsers = visitor.getTotalUsers();
@@ -190,7 +189,7 @@ public class AdminControlPanel extends FormatUI implements ActionListener {
 	// method to display total number of groups
 	private void showGroupTotal() {
 		int totalGroups = 0;
-		GroupComponent user = getSelecedUser();
+		UserGroupComponent user = getSelecedUser();
 		GroupTotalVisitor visitor = new GroupTotalVisitor();
 		user.accept(visitor);
 		totalGroups = visitor.getTotalGroups();
@@ -200,7 +199,7 @@ public class AdminControlPanel extends FormatUI implements ActionListener {
 	// method to display total number of messages
 	private void showMessagesTotal() {
 		int totalMessages = 0;
-		GroupComponent user = getSelecedUser();
+		UserGroupComponent user = getSelecedUser();
 		MessagesTotalVisitor visitor = new MessagesTotalVisitor();
 		user.accept(visitor);
 		totalMessages = visitor.getTotalMessages();
@@ -211,7 +210,7 @@ public class AdminControlPanel extends FormatUI implements ActionListener {
 	private void showPositivePercentage() {
 		final List<String> positiveWords = Arrays.asList("good", "great", "excellent", "amazing", "spectacular", "sensational");
 		double percentage = 0;
-		GroupComponent user = getSelecedUser();
+		UserGroupComponent user = getSelecedUser();
 		PositivePercentageVisitor visitor1 = new PositivePercentageVisitor(positiveWords);
 		MessagesTotalVisitor visitor2 = new MessagesTotalVisitor();
 		user.accept(visitor1);
@@ -225,8 +224,8 @@ public class AdminControlPanel extends FormatUI implements ActionListener {
 	}
 	
 	// method to get selected user or user group from tree
-	private GroupComponent getSelecedUser() {
-		GroupComponent user = (GroupComponent) tree.getLastSelectedPathComponent();
+	private UserGroupComponent getSelecedUser() {
+		UserGroupComponent user = (UserGroupComponent) tree.getLastSelectedPathComponent();
 		if (user == null) {
 			user = root;
 		}

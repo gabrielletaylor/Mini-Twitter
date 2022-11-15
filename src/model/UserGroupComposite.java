@@ -2,11 +2,11 @@ package model;
 import java.util.ArrayList;
 
 //composite class under component to follow Composite design pattern
-public class UserGroup implements GroupComponent {
+public class UserGroupComposite implements UserGroupComponent {
 	private String uniqueID;
-	private ArrayList<GroupComponent> users;
+	private ArrayList<UserGroupComponent> users;
 	
-	public UserGroup(String uniqueID) {
+	public UserGroupComposite(String uniqueID) {
 		this.uniqueID = uniqueID.toUpperCase();
 		users = new ArrayList<>();
 	}
@@ -17,17 +17,17 @@ public class UserGroup implements GroupComponent {
 	}
 
 	@Override
-	public void add(GroupComponent group) {
+	public void add(UserGroupComponent group) {
 		users.add(group);
 	}
 
 	@Override
-	public GroupComponent getChild(int child) {
+	public UserGroupComponent getChild(int child) {
 		return users.get(child);
 	}
 
 	@Override
-	public int getIndexOfChild(GroupComponent group) {
+	public int getIndexOfChild(UserGroupComponent group) {
 		return users.indexOf(group);
 	}
 
@@ -37,16 +37,16 @@ public class UserGroup implements GroupComponent {
 	}
 
 	@Override
-	public void accept(Visitor visitor) {
-		visitor.visitGroup(this);
-		for (GroupComponent group : users) {
-			group.accept(visitor);
+	public void accept(NodeVisitor nodeVisitor) {
+		nodeVisitor.visitGroup(this);
+		for (UserGroupComponent group : users) {
+			group.accept(nodeVisitor);
 		}
 	}
 
 	@Override
 	public void openUserView() {
-		for (GroupComponent group : users) {
+		for (UserGroupComponent group : users) {
 			group.openUserView();
 		}
 	}

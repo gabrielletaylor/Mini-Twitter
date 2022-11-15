@@ -4,14 +4,14 @@ import view.UserView;
 
 // composite class under component to follow Composite design pattern
 // also implements Observer design pattern for updating news feed
-public class User extends Subject implements Observer, GroupComponent {
+public class UserLeaf extends Subject implements Observer, UserGroupComponent {
 	private String uniqueID;
-	private ArrayList<User> following, followers;
+	private ArrayList<UserLeaf> following, followers;
 	private ArrayList<String> tweets, newsFeed;
-	private GroupComponentTree userGroupTree;
+	private TreeView userGroupTree;
 	private UserView userView;
 	
-	public User(GroupComponentTree userGroupTree, String uniqueID) {
+	public UserLeaf(TreeView userGroupTree, String uniqueID) {
 		this.userGroupTree = userGroupTree;
 		this.uniqueID = uniqueID.toLowerCase();
 		userView = new UserView(this);
@@ -43,10 +43,10 @@ public class User extends Subject implements Observer, GroupComponent {
 	}
 	
 	public boolean followUser(String userID) {
-		User user = (User) userGroupTree.findUserByID((GroupComponent) userGroupTree.getRoot(), userID);
-		if (user != null && !following.contains(user)) {
-			user.attach(this);
-			following.add(user);
+		UserLeaf userLeaf = (UserLeaf) userGroupTree.findUserByID((UserGroupComponent) userGroupTree.getRoot(), userID);
+		if (userLeaf != null && !following.contains(userLeaf)) {
+			userLeaf.attach(this);
+			following.add(userLeaf);
 			return true;
 		}
 		else {
@@ -60,17 +60,17 @@ public class User extends Subject implements Observer, GroupComponent {
 	}
 	
 	@Override
-	public void add(GroupComponent group) {
+	public void add(UserGroupComponent group) {
 		userView.displayErrorMessage("User Error", "Error: Cannot add user to a user.");
 	}
 	
 	@Override
-	public GroupComponent getChild(int child) {
+	public UserGroupComponent getChild(int child) {
 		return null;
 	}
 	
 	@Override
-	public int getIndexOfChild(GroupComponent group) {
+	public int getIndexOfChild(UserGroupComponent group) {
 		return -1;
 	}
 	
@@ -80,8 +80,8 @@ public class User extends Subject implements Observer, GroupComponent {
 	}
 	
 	@Override
-	public void accept(Visitor visitor) {
-		visitor.visitUser(this);
+	public void accept(NodeVisitor nodeVisitor) {
+		nodeVisitor.visitUser(this);
 	}
 	
 	@Override
@@ -91,8 +91,8 @@ public class User extends Subject implements Observer, GroupComponent {
 	
 	@Override
 	public void update(Subject subject) {
-		if (subject instanceof User) {
-			postToNewsFeed(((User) subject).getUniqueID() + ": " + ((User) subject).getLastTweet());
+		if (subject instanceof UserLeaf) {
+			postToNewsFeed(((UserLeaf) subject).getUniqueID() + ": " + ((UserLeaf) subject).getLastTweet());
 		}
 	}
 }

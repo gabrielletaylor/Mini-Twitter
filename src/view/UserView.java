@@ -10,10 +10,10 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import model.User;
+import model.UserLeaf;
 
 public class UserView extends FormatUI {
-	private User user;
+	private UserLeaf userLeaf;
 	private JLabel userIDLabel, tweetMessageLabel, currentFollowingLabel, newsFeedLabel;
 	private JPanel userPanel, followingPanel, tweetPanel, newsFeedPanel;
 	private JScrollPane followingScrollPane, newsFeedScrollPane;
@@ -22,15 +22,15 @@ public class UserView extends FormatUI {
 	private JList<String> followingList, newsFeedList;
 	private DefaultListModel<String> followingListModel, newsFeedListModel;
 	
-	public UserView(User user) {
-		this.user = user;
+	public UserView(UserLeaf userLeaf) {
+		this.userLeaf = userLeaf;
 	}
 	
 	// method that displays user view panel for specific user
 	public void displayUserViewPanel() {
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setTitle("Mini Twitter - " + user.getUniqueID());
+        setTitle("Mini Twitter - " + userLeaf.getUniqueID());
         setSize(500, 700);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -114,7 +114,7 @@ public class UserView extends FormatUI {
 		String followUserID = userID.getText();
 		if (followUserID != "") {
 			String userAt = "@" + followUserID;
-			if (user.followUser(userAt)) {
+			if (userLeaf.followUser(userAt)) {
 				followingListModel.add(0, " - " + userAt);
 			}
 			else {
@@ -128,7 +128,7 @@ public class UserView extends FormatUI {
 	public void postTweet() {
 		String tweet = tweetMessage.getText();
 		if (tweet != "") {
-			user.postTweet(tweet);
+			userLeaf.postTweet(tweet);
 			tweetMessage.setText("");
 		}
 	}

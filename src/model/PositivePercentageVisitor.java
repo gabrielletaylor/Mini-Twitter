@@ -1,7 +1,7 @@
 package model;
 import java.util.List;
 
-public class PositivePercentageVisitor extends Visitor {
+public class PositivePercentageVisitor extends NodeVisitor {
 	
 	private int totalPositiveMessages;
 	private List<String> positiveWords; 
@@ -15,12 +15,12 @@ public class PositivePercentageVisitor extends Visitor {
 	}
 
 	@Override
-	public void visitUser(User user) {
-		getPositiveTweets(user.getTweets());
+	public void visitUser(UserLeaf userLeaf) {
+		getPositiveTweets(userLeaf.getTweets());
 	}
 
 	@Override
-	public void visitGroup(UserGroup group) {}
+	public void visitGroup(UserGroupComposite group) {}
 	
 	private void getPositiveTweets(List<String> tweets) {
 		for (String tweet : tweets) {

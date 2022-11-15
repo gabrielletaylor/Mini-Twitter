@@ -1,6 +1,6 @@
 package model;
 
-public class MessagesTotalVisitor extends Visitor {
+public class MessagesTotalVisitor extends NodeVisitor {
 	
 	private int totalMessages;
 	
@@ -9,10 +9,10 @@ public class MessagesTotalVisitor extends Visitor {
 	}
 
 	@Override
-	public void visitUser(User user) {
-		totalMessages += user.getTweets().size();
+	public void visitUser(UserLeaf userLeaf) {
+		totalMessages += userLeaf.getTweets().size();
 	}
 
 	@Override
-	public void visitGroup(UserGroup group) {}
+	public void visitGroup(UserGroupComposite group) {}
 }

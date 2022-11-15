@@ -1,24 +1,24 @@
 package model;
 
-public class FindUserVisitor extends Visitor {
-	private User user;
+public class FindUserVisitor extends NodeVisitor {
+	private UserLeaf userLeaf;
 	private String userID;
 	
 	public FindUserVisitor(String userID) {
 		this.userID = userID.toLowerCase();
 	}
 	
-	public User getUser() {
-		return user;
+	public UserLeaf getUser() {
+		return userLeaf;
 	}
 	
 	@Override
-	public void visitUser(User user) {
-		if (user.getUniqueID().toLowerCase().equals(userID)) {
-			this.user = user;
+	public void visitUser(UserLeaf userLeaf) {
+		if (userLeaf.getUniqueID().toLowerCase().equals(userID)) {
+			this.userLeaf = userLeaf;
 		}
 	}
 
 	@Override
-	public void visitGroup(UserGroup group) {}
+	public void visitGroup(UserGroupComposite group) {}
 }
