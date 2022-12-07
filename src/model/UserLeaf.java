@@ -10,8 +10,10 @@ public class UserLeaf extends Subject implements Observer, UserGroupComponent {
 	private ArrayList<String> tweets, newsFeed;
 	private TreeView userGroupTree;
 	private UserView userView;
+	private long creationTime, lastUpdateTime;
 	
 	public UserLeaf(TreeView userGroupTree, String uniqueID) {
+		creationTime = System.currentTimeMillis();
 		this.userGroupTree = userGroupTree;
 		this.uniqueID = uniqueID.toLowerCase();
 		userView = new UserView(this);
@@ -24,6 +26,15 @@ public class UserLeaf extends Subject implements Observer, UserGroupComponent {
 		following.add(this);
 	}
 	
+	public long getLastUpdateTime() {
+		return lastUpdateTime;
+	}
+	
+	public void setLastUpdateTime() {
+		this.lastUpdateTime = System.currentTimeMillis();
+	}
+	
+	
 	public ArrayList<String> getTweets() {
 		return tweets;
 	}
@@ -33,13 +44,14 @@ public class UserLeaf extends Subject implements Observer, UserGroupComponent {
 	}
 	
 	public void postTweet(String tweet) {
+		lastUpdateTime = System.currentTimeMillis();
 		tweets.add(tweet);
 		notifyObservers();
 	}
 	
 	public void postToNewsFeed(String tweet) {
 		newsFeed.add(tweet);
-		userView.addTweetToNewsFeed(tweet);
+		userView.addTweetToNewsFeed(tweet);		
 	}
 	
 	public boolean followUser(String userID) {
@@ -52,6 +64,16 @@ public class UserLeaf extends Subject implements Observer, UserGroupComponent {
 		else {
 			return false;
 		}
+	}
+	
+	@Override
+	public long getCreationTime() {
+		return creationTime;
+	}
+
+	@Override
+	public void setCreationTime() {
+		this.creationTime = System.currentTimeMillis();
 	}
 	
 	@Override

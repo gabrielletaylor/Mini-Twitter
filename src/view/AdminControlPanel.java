@@ -9,16 +9,19 @@ import javax.swing.*;
 import model.UserGroupComponent;
 import model.TreeView;
 import model.GroupTotalVisitor;
+import model.LastUpdatedUserVisitor;
 import model.MessagesTotalVisitor;
 import model.PositivePercentageVisitor;
 import model.UserLeaf;
 import model.UserGroupComposite;
 import model.UserTotalVisitor;
+import model.ValidUserVisitor;
 
 public class AdminControlPanel extends FormatUI implements ActionListener {
     private JTextField userID, groupID;
     private JButton addUser, addGroup, openUserView, showUserTotal,
-					showGroupTotal, showMessagesTotal, showPositivePercentage;
+					showGroupTotal, showMessagesTotal, showPositivePercentage,
+					validateUser, lastUpdatedUser;
     private JLabel userIDLabel, groupIDLabel;
     private JPanel treeViewPanel, userGroupPanel, informationPanel, openUserViewPanel;
     private JTree tree;
@@ -80,25 +83,31 @@ public class AdminControlPanel extends FormatUI implements ActionListener {
         
         // open user view panel
         openUserViewPanel = new JPanel();
-        stylePanel(openUserViewPanel, 395, 260, 495, 100);
+        stylePanel(openUserViewPanel, 395, 240, 495, 80);
         openUserView = new JButton("Open User View");
-        styleButton(openUserView, 5, 25, 485, 50);
+        styleButton(openUserView, 5, 15, 485, 50);
         openUserViewPanel.add(openUserView);
         
         // analysis features panel
         informationPanel = new JPanel();
-        stylePanel(informationPanel, 395, 360, 495, 200);
+        stylePanel(informationPanel, 395, 350, 495, 210);
+        validateUser = new JButton("Validate Users");
+        styleButton(validateUser, 5, 15, 240, 50);
+        informationPanel.add(validateUser);
+        lastUpdatedUser = new JButton("Last Updated User");
+        styleButton(lastUpdatedUser, 250, 15, 240, 50);
+        informationPanel.add(lastUpdatedUser);
         showUserTotal = new JButton("Show User Total");
-        styleButton(showUserTotal, 5, 50, 240, 50);
+        styleButton(showUserTotal, 5, 80, 240, 50);
         informationPanel.add(showUserTotal);
         showGroupTotal = new JButton("Show Group Total");
-        styleButton(showGroupTotal, 250, 50, 240, 50);
+        styleButton(showGroupTotal, 250, 80, 240, 50);
         informationPanel.add(showGroupTotal);
         showMessagesTotal = new JButton("Show Messages Total");
-        styleButton(showMessagesTotal, 5, 115, 240, 50);
+        styleButton(showMessagesTotal, 5, 145, 240, 50);
         informationPanel.add(showMessagesTotal);
         showPositivePercentage = new JButton("Show Positive Percentage");
-        styleButton(showPositivePercentage, 250, 115, 240, 50);
+        styleButton(showPositivePercentage, 250, 145, 240, 50);
         informationPanel.add(showPositivePercentage);
         
         setVisible(true);
@@ -114,6 +123,12 @@ public class AdminControlPanel extends FormatUI implements ActionListener {
 		}
 		else if (e.getSource() == openUserView) {
 			openUserView();
+		}
+		else if (e.getSource() == validateUser) {
+			validateUser();
+		}
+		else if (e.getSource() == lastUpdatedUser) {
+			lastUpdatedUser();
 		}
 		else if (e.getSource() == showUserTotal) {
 			showUserTotal();
@@ -176,6 +191,27 @@ public class AdminControlPanel extends FormatUI implements ActionListener {
 		user.openUserView();
 	}
 	
+	// method to validate all the IDs used in users and groups based on:
+	// all IDS must be unique and IDs should not contain spaces
+	private void validateUser() {
+		int invalidUsers = 0;
+		UserGroupComponent user = getSelectedUser();
+		ValidUserVisitor visitor = new ValidUserVisitor(user);
+		user.accept(visitor);
+		invalidUsers = visitor.getInvalidIDs();
+		JOptionPane.showMessageDialog(this, "Total number of invalid users: " + invalidUsers, "Invalid User Total", JOptionPane.PLAIN_MESSAGE);
+	}
+	
+	// method to output the ID of the user who made the last update
+	private void lastUpdatedUser() {
+		String lastUpdateUser;
+		UserGroupComponent user = getSelectedUser();
+		LastUpdatedUserVisitor visitor = new LastUpdatedUserVisitor();
+		user.accept(visitor);
+		lastUpdateUser = visitor.getLastUpdateUser();
+		JOptionPane.showMessageDialog(this, "User who made the last update: " + lastUpdateUser, "Last Update User", JOptionPane.PLAIN_MESSAGE);
+	}
+	
 	// method to display total number of users
 	private void showUserTotal() {
 		int totalUsers = 0;
@@ -219,7 +255,8 @@ public class AdminControlPanel extends FormatUI implements ActionListener {
 		if (((Double) percentage).isNaN()) {
 			percentage = 0;
 		}
-		JOptionPane.showMessageDialog(this, "Percentage of tweets containing positive words: " + percentage + "%", 
+		String roundedPercent = String.format(".2f", percentage);
+		JOptionPane.showMessageDialog(this, "Percentage of tweets containing positive words: " + roundedPercent + "%", 
 				"Positive Percentage", JOptionPane.PLAIN_MESSAGE);
 	}
 	

@@ -1,4 +1,5 @@
 package view;
+import java.awt.Color;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
@@ -10,6 +11,7 @@ public abstract class FormatUI extends JFrame implements ActionListener {
         panel.setBounds(x, y, width, height);
         panel.setLayout(null);
         panel.setOpaque(true);
+        panel.setBackground(Color.darkGray);
         add(panel);
     }
 	

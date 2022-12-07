@@ -5,12 +5,24 @@ import java.util.ArrayList;
 public class UserGroupComposite implements UserGroupComponent {
 	private String uniqueID;
 	private ArrayList<UserGroupComponent> users;
+	private long creationTime;
 	
 	public UserGroupComposite(String uniqueID) {
 		this.uniqueID = uniqueID.toUpperCase();
 		users = new ArrayList<>();
+		creationTime = System.currentTimeMillis();
+	}
+	
+	@Override
+	public long getCreationTime() {
+		return creationTime;
 	}
 
+	@Override
+	public void setCreationTime() {
+		this.creationTime = System.currentTimeMillis();
+	}
+	
 	@Override
 	public String getUniqueID() {
 		return uniqueID;
