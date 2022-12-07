@@ -1,9 +1,13 @@
-package model;
+package view.ui;
 import java.util.ArrayList;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
+
+import model.composite.pattern.UserGroupComponent;
+import model.visitor.pattern.FindGroupVisitor;
+import model.visitor.pattern.FindUserVisitor;
 
 public class TreeView implements TreeModel {
 	private UserGroupComponent root;                   

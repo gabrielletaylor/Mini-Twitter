@@ -1,4 +1,6 @@
-package model;
+package model.composite.pattern;
+
+import model.visitor.pattern.NodeVisitor;
 
 // interface to implement Composite design pattern
 public interface UserGroupComponent {

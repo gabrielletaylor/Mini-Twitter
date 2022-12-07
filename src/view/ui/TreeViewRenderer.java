@@ -1,12 +1,13 @@
-package view;
+package view.ui;
 import java.awt.Component;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JTree;
 import javax.swing.tree.TreeCellRenderer;
-import model.UserGroupComponent;
-import model.UserGroupComposite;
-import model.UserLeaf;
+
+import model.composite.pattern.UserGroupComponent;
+import model.composite.pattern.UserGroupComposite;
+import model.composite.pattern.UserLeaf;
 
 public class TreeViewRenderer implements TreeCellRenderer {
 

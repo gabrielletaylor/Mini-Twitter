@@ -1,4 +1,4 @@
-package view;
+package view.ui;
 
 import java.awt.event.ActionEvent;
 import javax.swing.BorderFactory;
@@ -10,7 +10,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import model.UserLeaf;
+
+import model.composite.pattern.UserLeaf;
 
 public class UserView extends FormatUI {
 	private UserLeaf userLeaf;
@@ -106,7 +107,7 @@ public class UserView extends FormatUI {
 
 	// method to add tweet to news feed
 	public void addTweetToNewsFeed(String tweet) {
-		newsFeedListModel.add(0, "(" + userLeaf.getLastUpdateTime() + ") - @" + tweet);		
+		newsFeedListModel.add(0, tweet);		
 	}
 	
 	// method to follow user as long as user exists

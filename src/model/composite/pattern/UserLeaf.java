@@ -1,6 +1,11 @@
-package model;
+package model.composite.pattern;
 import java.util.ArrayList;
-import view.UserView;
+
+import model.observer.pattern.Observer;
+import model.observer.pattern.Subject;
+import model.visitor.pattern.NodeVisitor;
+import view.ui.TreeView;
+import view.ui.UserView;
 
 // composite class under component to follow Composite design pattern
 // also implements Observer design pattern for updating news feed
@@ -34,7 +39,6 @@ public class UserLeaf extends Subject implements Observer, UserGroupComponent {
 		this.lastUpdateTime = System.currentTimeMillis();
 	}
 	
-	
 	public ArrayList<String> getTweets() {
 		return tweets;
 	}
@@ -51,7 +55,7 @@ public class UserLeaf extends Subject implements Observer, UserGroupComponent {
 	
 	public void postToNewsFeed(String tweet) {
 		newsFeed.add(tweet);
-		userView.addTweetToNewsFeed(tweet);		
+		userView.addTweetToNewsFeed(tweet);
 	}
 	
 	public boolean followUser(String userID) {
@@ -114,7 +118,8 @@ public class UserLeaf extends Subject implements Observer, UserGroupComponent {
 	@Override
 	public void update(Subject subject) {
 		if (subject instanceof UserLeaf) {
-			postToNewsFeed(((UserLeaf) subject).getUniqueID() + ": " + ((UserLeaf) subject).getLastTweet());
+			UserLeaf user = (UserLeaf)subject; 
+			postToNewsFeed("(" + user.getLastUpdateTime() + ") - @" + user.getUniqueID() + ": " + user.getLastTweet());
 		}
 	}
 }

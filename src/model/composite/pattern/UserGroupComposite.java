@@ -1,5 +1,7 @@
-package model;
+package model.composite.pattern;
 import java.util.ArrayList;
+
+import model.visitor.pattern.NodeVisitor;
 
 //composite class under component to follow Composite design pattern
 public class UserGroupComposite implements UserGroupComponent {

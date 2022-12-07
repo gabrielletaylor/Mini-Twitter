@@ -1,4 +1,4 @@
-package view;
+package view.singleton.pattern;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -6,16 +6,18 @@ import java.util.Arrays;
 import java.awt.*;
 import javax.swing.*;
 
-import model.UserGroupComponent;
-import model.TreeView;
-import model.GroupTotalVisitor;
-import model.LastUpdatedUserVisitor;
-import model.MessagesTotalVisitor;
-import model.PositivePercentageVisitor;
-import model.UserLeaf;
-import model.UserGroupComposite;
-import model.UserTotalVisitor;
-import model.ValidUserVisitor;
+import model.composite.pattern.UserGroupComponent;
+import model.composite.pattern.UserGroupComposite;
+import model.composite.pattern.UserLeaf;
+import model.visitor.pattern.GroupTotalVisitor;
+import model.visitor.pattern.LastUpdatedUserVisitor;
+import model.visitor.pattern.MessagesTotalVisitor;
+import model.visitor.pattern.PositivePercentageVisitor;
+import model.visitor.pattern.UserTotalVisitor;
+import model.visitor.pattern.ValidUserVisitor;
+import view.ui.FormatUI;
+import view.ui.TreeView;
+import view.ui.TreeViewRenderer;
 
 public class AdminControlPanel extends FormatUI implements ActionListener {
     private JTextField userID, groupID;

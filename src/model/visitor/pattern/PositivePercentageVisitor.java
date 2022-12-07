@@ -1,5 +1,8 @@
-package model;
+package model.visitor.pattern;
 import java.util.List;
+
+import model.composite.pattern.UserGroupComposite;
+import model.composite.pattern.UserLeaf;
 
 public class PositivePercentageVisitor extends NodeVisitor {
 	
