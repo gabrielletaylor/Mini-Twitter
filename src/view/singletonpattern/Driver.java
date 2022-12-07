@@ -1,4 +1,4 @@
-package view.singleton.pattern;
+package view.singletonpattern;
 
 public class Driver {
 

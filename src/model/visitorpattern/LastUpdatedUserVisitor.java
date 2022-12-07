@@ -1,7 +1,7 @@
-package model.visitor.pattern;
+package model.visitorpattern;
 
-import model.composite.pattern.UserGroupComposite;
-import model.composite.pattern.UserLeaf;
+import model.compositepattern.UserGroupComposite;
+import model.compositepattern.UserLeaf;
 
 public class LastUpdatedUserVisitor extends NodeVisitor {
 	private long lastUpdateTime = 0;

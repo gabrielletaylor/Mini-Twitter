@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import model.composite.pattern.UserLeaf;
+import model.compositepattern.UserLeaf;
 
 public class UserView extends FormatUI {
 	private UserLeaf userLeaf;

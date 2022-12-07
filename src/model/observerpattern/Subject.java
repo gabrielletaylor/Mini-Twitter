@@ -1,4 +1,4 @@
-package model.observer.pattern;
+package model.observerpattern;
 import java.util.ArrayList;
 
 // class to keep track of/know its observers

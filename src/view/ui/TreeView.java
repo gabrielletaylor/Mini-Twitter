@@ -5,9 +5,9 @@ import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
-import model.composite.pattern.UserGroupComponent;
-import model.visitor.pattern.FindGroupVisitor;
-import model.visitor.pattern.FindUserVisitor;
+import model.compositepattern.UserGroupComponent;
+import model.visitorpattern.FindGroupVisitor;
+import model.visitorpattern.FindUserVisitor;
 
 public class TreeView implements TreeModel {
 	private UserGroupComponent root;                   

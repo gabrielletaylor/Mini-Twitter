@@ -1,4 +1,4 @@
-package model.observer.pattern;
+package model.observerpattern;
 
 // interface to implement Observer design pattern
 public interface Observer {

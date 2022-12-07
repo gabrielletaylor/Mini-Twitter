@@ -1,8 +1,8 @@
-package model.visitor.pattern;
+package model.visitorpattern;
 
-import model.composite.pattern.UserGroupComponent;
-import model.composite.pattern.UserGroupComposite;
-import model.composite.pattern.UserLeaf;
+import model.compositepattern.UserGroupComponent;
+import model.compositepattern.UserGroupComposite;
+import model.compositepattern.UserLeaf;
 
 public class ValidUserVisitor extends NodeVisitor {
 	private int invalidIDs;

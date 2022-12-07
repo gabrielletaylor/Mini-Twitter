@@ -5,9 +5,9 @@ import javax.swing.JLabel;
 import javax.swing.JTree;
 import javax.swing.tree.TreeCellRenderer;
 
-import model.composite.pattern.UserGroupComponent;
-import model.composite.pattern.UserGroupComposite;
-import model.composite.pattern.UserLeaf;
+import model.compositepattern.UserGroupComponent;
+import model.compositepattern.UserGroupComposite;
+import model.compositepattern.UserLeaf;
 
 public class TreeViewRenderer implements TreeCellRenderer {
 

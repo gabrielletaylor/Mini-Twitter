@@ -1,9 +1,9 @@
-package model.composite.pattern;
+package model.compositepattern;
 import java.util.ArrayList;
 
-import model.observer.pattern.Observer;
-import model.observer.pattern.Subject;
-import model.visitor.pattern.NodeVisitor;
+import model.observerpattern.Observer;
+import model.observerpattern.Subject;
+import model.visitorpattern.NodeVisitor;
 import view.ui.TreeView;
 import view.ui.UserView;
 
